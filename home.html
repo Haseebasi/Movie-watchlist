@@ -1,8 +1,23 @@
 <html>
     <head>
-        <link rel="stylesheet" href="home.css">
-    </head>
+        <link rel="stylesheet" href="css/home.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+</head>
     <body>
+        <header>
+            <h1>Find your film</h1><a href="watchlist.html" class="header-link">my watchlist</a>
+        </header>
+        <div class="search-div"><i class="fa-solid fa-magnifying-glass search-icon"></i><input class="search-text" type="text" placeholder="search for a movie"><button class="search-btn">Search</button></div>
+        <main>
+            <div class="empty-text hide"><i class="fa-solid fa-film"></i><p>Start exploring</p></div>
+            <div class="movie-details">
+                <img class="poster" src="images/poster.png"><div>Blade Runner</div>
+            </div>
+        </main>
         <script src="index.js"></script>
     </body>
 </html>
