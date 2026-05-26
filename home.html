@@ -1,6 +1,6 @@
 <html>
     <head>
-        <link rel="stylesheet" href="css/home.css">
+        <link rel="stylesheet" href="css/index.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
@@ -13,22 +13,21 @@
         </header>
         <div class="search-div"><i class="fa-solid fa-magnifying-glass search-icon"></i><input class="search-text" type="text" placeholder="search for a movie"><button class="search-btn">Search</button></div>
         <main>
-            <div class="empty-text hide"><i class="fa-solid fa-film"></i><p>Start exploring</p></div>
-            <div class="movie-details">
+            <section class="empty-text hide"><i class="fa-solid fa-film"></i><p>Start exploring</p></section>
+            <div class="movie-details hide">
                 <img class="poster" src="images/poster.png">
                 <div class="movie-description">
                     <div class="movie-name">
                         <p class="title">Blade Runner</p><i class="fa-solid fa-star star-icon"></i><p class="rating">8.1</p>
                     </div>
                     <div class="movie-genre">
-                        <p class="runtime">117min</p><p class="genre">Action, Drama, Sci-fi</p> <p class="add-watchlist"><i class="fa-solid fa-circle-plus"></i> Watchlist</p>
+                        <p class="runtime">117min</p><p class="genre">Action, Drama, Sci-fi</p> <div class="add-watchlist"><i class="fa-solid fa-circle-plus"></i> <p></p>Watchlist</p></div>
                     </div>
                     <p class="movie-plot">A blade runner must pursue and terminate four replicants who stole a ship in space, and have returned to Earth to find their creator.</p>
-
-
                 </div>
             </div>
+            <section class="not-found"><p>Unable to find what you&#39;re looking for. Please try another search.</p></section>
         </main>
-        <script src="index.js"></script>
+        <script src="home.js"></script>
     </body>
 </html>
