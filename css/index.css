@@ -40,6 +40,12 @@ header,main{
 .header-link:focus{
     color:#808080;
 }
+form{
+    display: flex;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
 .search-btn,.search-text{
     border:none;
     padding:.625em .9375em;
