@@ -1,5 +1,8 @@
 const mainSection = document.getElementById("main-section")
-let watchlistArray = JSON.parse(localStorage.getItem("watchList"))
+let watchlistArray =[]
+if (JSON.parse(localStorage.getItem("watchList"))){
+watchlistArray = JSON.parse(localStorage.getItem("watchList"))
+}
 console.log(watchlistArray)
 async function handleSearch(){
     const searchKeyword = document.getElementById("search-text").value
@@ -25,8 +28,6 @@ async function handleSearch(){
     }
 }
 
-
-
 async function renderEach(MovieId){
     const res = await fetch(`https://www.omdbapi.com/?i=${MovieId}&plot=full&apikey=b48d998a`)
     const data = await res.json()
@@ -35,7 +36,7 @@ async function renderEach(MovieId){
                 <img class="poster" src="${data.Poster}" alt="${data.Title} poster">
                 <div class="movie-description">
                     <div class="movie-name">
-                        <p class="title">${data.Title}</p><i class="fa-solid fa-star star-icon"></i><p class="rating">${data.Ratings[0].Value}</p>
+                        <p class="title">${data.Title}</p><i class="fa-solid fa-star star-icon"></i><p class="rating">${data.Ratings[0].value}</p>
                     </div>
                     <div class="movie-genre">
                         <p class="runtime">${data.Runtime}</p><p class="genre">${data.Genre}</p> <div class="add-watchlist" data-add="${data.imdbID}" id="w${data.imdbID}"><i class="fa-solid fa-circle-plus"></i> <p>Watchlist</p></div>
@@ -81,11 +82,12 @@ async function idDetailsPicker(id){
             
             watchlistArray.push({
                 imdbId:data.imdbID,
+                Poster:data.Poster,
                 Title:data.Title,
                 Ratings:data.Ratings[0].value,
                 Runtime:data.Runtime,
                 Genre:data.Genre,
-                Plot:data.plot
+                Plot:data.Plot
             }) 
             addElement.style.color = "#00ff00"
             addElement.innerHTML = `<i class="fa-solid fa-circle-check"></i> <p>Watchlist</p>`
