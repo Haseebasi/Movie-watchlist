@@ -1,5 +1,5 @@
 const mainSection = document.getElementById("main-section")
-let dataObjArray = []
+let watchlistArray = []
 async function handleSearch(){
     const searchKeyword = document.getElementById("search-text").value
     const emptyParagraph = document.getElementById("empty-text")
@@ -37,7 +37,7 @@ async function renderEach(MovieId){
                         <p class="title">${data.Title}</p><i class="fa-solid fa-star star-icon"></i><p class="rating">${data.Ratings[0].Value}</p>
                     </div>
                     <div class="movie-genre">
-                        <p class="runtime">${data.Runtime}</p><p class="genre">${data.Genre}</p> <div class="add-watchlist" data-add="${data.imdbID}"><i class="fa-solid fa-circle-plus"></i> <p>Watchlist</p></div>
+                        <p class="runtime">${data.Runtime}</p><p class="genre">${data.Genre}</p> <div class="add-watchlist" data-add="${data.imdbID}" id="w${data.imdbID}"><i class="fa-solid fa-circle-plus"></i> <p>Watchlist</p></div>
                     </div>
                     <div class="movie-plot-container" id="pc${data.imdbID}">
                     <p class="movie-plot" id="plot${data.imdbID}">${data.Plot}
@@ -66,24 +66,47 @@ function checkPlotOverflow(id) {
     }
 }
 
-async function idDetailsPicker(){
-    
+async function idDetailsPicker(id){
+    const addElement = document.getElementById(`w${id}`)  
     const res = await fetch(`https://www.omdbapi.com/?i=${id}&apikey=b48d998a`)
         const data = await res.json()
-        
+
+        if(! watchlistArray.find(movie => movie.imdbId === id)){
+            
+            watchlistArray.push({
+                imdbId:data.imdbID,
+                Title:data.Title,
+                Ratings:data.Ratings[0].value,
+                Runtime:data.Runtime,
+                Genre:data.Genre,
+                Plot:data.plot
+            }) 
+            addElement.style.color = "#00ff00"
+            addElement.innerHTML = `<i class="fa-solid fa-circle-check"></i> <p>Watchlist</p>`
+            
+
+        }else{
+            watchlistArray = watchlistArray.filter(movie => movie.imdbId != id)
+            addElement.style.color = "black"
+            addElement.innerHTML = `<i class="fa-solid fa-circle-plus"></i> <p>Watchlist</p>`
+            console.log(watchlistArray)
+        }
+        storingLocally()
 
 }
 
 function storingLocally(){
-    console.log("hello")
+
+    localStorage.setItem("watchList",JSON.stringify (watchlistArray))
+    console.log(JSON.parse(localStorage.getItem("watchList")))
 }
 
 
 
 
 document.addEventListener("click",function(e){
-    console.log(e.target.dataset.name)
     if(e.target.id === "search-btn"){
+        e.preventDefault()
         handleSearch()
     }
     if (e.target.dataset.readbtn) {
@@ -123,6 +146,7 @@ document.addEventListener("click",function(e){
         const watchlistAdd = e.target.closest('[data-add]')
         if(watchlistAdd){
             const id=watchlistAdd.dataset.add
+            idDetailsPicker(id)
         }
     }
 })
