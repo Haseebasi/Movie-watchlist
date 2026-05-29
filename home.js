@@ -1,5 +1,6 @@
 const mainSection = document.getElementById("main-section")
-let watchlistArray = []
+let watchlistArray = JSON.parse(localStorage.getItem("watchList"))
+console.log(watchlistArray)
 async function handleSearch(){
     const searchKeyword = document.getElementById("search-text").value
     const emptyParagraph = document.getElementById("empty-text")
@@ -48,6 +49,11 @@ async function renderEach(MovieId){
             </div>`
             // const mPlot = document.getElementById(`plot${data.imdbID}`)
             checkPlotOverflow(data.imdbID) 
+            if(watchlistArray.some(movie => movie.imdbId === data.imdbID)){
+                const addElement = document.getElementById(`w${data.imdbID}`)
+                addElement.style.color = "#00ff00"
+                addElement.innerHTML = `<i class="fa-solid fa-circle-check"></i> <p>Watchlist</p>`
+            }
 }
 
 
@@ -96,7 +102,6 @@ async function idDetailsPicker(id){
 }
 
 function storingLocally(){
-
     localStorage.setItem("watchList",JSON.stringify (watchlistArray))
     console.log(JSON.parse(localStorage.getItem("watchList")))
 }
