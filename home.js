@@ -1,9 +1,18 @@
 const mainSection = document.getElementById("main-section")
 let watchlistArray =[]
+
+/* ======================================
+            parsing watchlist from local storage
+   ====================================== */
+
 if (JSON.parse(localStorage.getItem("watchList"))){
 watchlistArray = JSON.parse(localStorage.getItem("watchList"))
 }
-console.log(watchlistArray)
+
+/* ======================================
+            Action for search form
+   ====================================== */
+// console.log(watchlistArray)
 async function handleSearch(){
     const searchKeyword = document.getElementById("search-text").value
     const emptyParagraph = document.getElementById("empty-text")
@@ -27,6 +36,10 @@ async function handleSearch(){
         emptyParagraph.classList.add("hide")
     }
 }
+
+/* ======================================
+            rendering movie details cards
+   ====================================== */
 
 async function renderEach(MovieId){
     const res = await fetch(`https://www.omdbapi.com/?i=${MovieId}&plot=full&apikey=b48d998a`)
@@ -58,6 +71,9 @@ async function renderEach(MovieId){
 }
 
 
+/* ======================================
+            checking for plot overflow and rendering read more and read less buttons
+   ====================================== */
 
 function checkPlotOverflow(id) {
     
@@ -72,6 +88,10 @@ function checkPlotOverflow(id) {
         }
     }
 }
+
+/* ======================================
+            watchlist add and remove functionality
+   ====================================== */
 
 async function idDetailsPicker(id){
     const addElement = document.getElementById(`w${id}`)  
@@ -103,6 +123,10 @@ async function idDetailsPicker(id){
 
 }
 
+/* ======================================
+            watchlist local storage functionality
+   ====================================== */
+
 function storingLocally(){
     localStorage.setItem("watchList",JSON.stringify (watchlistArray))
     console.log(JSON.parse(localStorage.getItem("watchList")))
@@ -110,8 +134,17 @@ function storingLocally(){
 
 
 
+/* ======================================
+            event handling of the page
+   ====================================== */
+
 
 document.addEventListener("click",function(e){
+
+/* ======================================
+            event handler for search form
+   ====================================== */
+
     if(e.target.id === "search-btn"){
         e.preventDefault()
         handleSearch()
@@ -133,6 +166,10 @@ document.addEventListener("click",function(e){
         readlessBtn.classList.remove('hide')
     }
 
+    /* ======================================
+            event handler for read less button
+   ====================================== */
+
     if (e.target.dataset.readless) {
         e.preventDefault();
         const targetId = e.target.dataset.readless;
@@ -149,6 +186,11 @@ document.addEventListener("click",function(e){
         readMoreContainer.classList.remove('hide');
         readlessBtn.classList.add('hide');
     }
+
+/* ======================================
+            event handler for adding movies to watchlist
+   ====================================== */
+
     if(e.target.closest('[data-add]')){
         const watchlistAdd = e.target.closest('[data-add]')
         if(watchlistAdd){

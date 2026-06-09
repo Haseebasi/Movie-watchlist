@@ -1,6 +1,11 @@
-let watchList = (JSON.parse(localStorage.getItem("watchList")))
+let watchList = (JSON.parse(localStorage.getItem("watchList"))) //parsing the watchlist array from local storage
 const emptyText = document.getElementById("empty-text") 
 const main = document.getElementById("mainSection")
+
+/* ======================================
+            function to show the text when watchlist is empty
+   ====================================== */
+
 if(watchList && watchList.length >0){
     emptyText.classList.add("hide")
     renderArray()
@@ -9,6 +14,9 @@ if(watchList && watchList.length >0){
     emptyText.classList.remove("hide")
 }
 
+/* ======================================
+            function to get each movies from the list of watchlist array and render them on the page
+   ====================================== */
 
 function renderArray(){
     for(i=0;i<watchList.length;i++){
@@ -18,6 +26,10 @@ function renderArray(){
         
 }
 
+
+/* ======================================
+            function for render each movie card
+   ====================================== */
 
 function renderEach(movieObj){
     main.innerHTML += `<div class="movie-details" id="${movieObj.imdbId}">
@@ -34,6 +46,10 @@ function renderEach(movieObj){
             </div>`
 }
 
+
+/* ======================================
+            function to remove movies from watchlist
+   ====================================== */
 
 function removeItem(id){
     console.log(id)
@@ -53,13 +69,19 @@ function removeItem(id){
 
 }
 
-
+/* ======================================
+            function to store on local storage
+   ====================================== */
 
 function storingLocally(){
     localStorage.setItem("watchList",JSON.stringify (watchList))
     console.log(JSON.parse(localStorage.getItem("watchList")))
 }
 
+
+/* ======================================
+            event listener for removing movies from watchlist
+   ====================================== */
 
 document.addEventListener("click",function(e){
     if(e.target.closest('[data-remove]')){
